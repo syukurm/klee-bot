@@ -1,0 +1,8 @@
+{
+  "{src,test}/**/*.{ts,json}": [
+    "pnpm prettier --write"
+  ],
+  "{src,test}/**/*.{ts}": [
+    "pnpm eslint"
+  ]
+}
