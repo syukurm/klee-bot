@@ -1,13 +1,23 @@
 import { Pagination } from "@discordx/pagination";
-import type { CommandInteraction } from "discord.js";
+import type { CommandInteraction, Message } from "discord.js";
 import { MessageEmbed } from "discord.js";
-import { Discord, MetadataStorage, Slash } from "discordx";
+import type { SimpleCommandMessage } from "discordx";
+import { Discord, MetadataStorage, SimpleCommand, Slash } from "discordx";
 import type { Command } from "src/interfaces/command";
 
 @Discord()
 export default class Help implements Command {
-  @Slash("help", { description: "Show all commands" })
-  async run(interaction: CommandInteraction): Promise<void> {
+  @Slash("help", { description: "Show all available commands" })
+  public async slash(interaction: CommandInteraction): Promise<void> {
+    await this.execute(interaction);
+  }
+
+  @SimpleCommand("help", { description: "Show all commands" })
+  public async simpleCommand(command: SimpleCommandMessage): Promise<void> {
+    await this.execute(command.message);
+  }
+
+  public async execute(interaction: CommandInteraction | Message): Promise<void> {
     const commands = MetadataStorage.instance.applicationCommands.map(({ name, description }) => {
       return { name, description };
     });
