@@ -13,7 +13,9 @@
     "baseUrl": "./",
     "paths": {
       "~interfaces/*": ["src/interfaces/*"],
-      "~services/*": ["src/services/*"]
+      "~services/*": ["src/services/*"],
+      "~constants/*": ["src/constants/*"],
+      "~types/*": ["src/types/*"]
     },
     "target": "es2022"
   },
@@ -23,5 +25,7 @@
     "strictMode": true,
     "lazy": false,
     "noInterop": false
-  }
+  },
+  "sourceMaps": true,
+  "inlineSourcesContent": true
 }

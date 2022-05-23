@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { envsafe, str } from "envsafe";
+import { envsafe, num, str } from "envsafe";
 import { Service } from "typedi";
 
 const config = envsafe({
@@ -9,6 +9,14 @@ const config = envsafe({
     choices: ["development", "test", "production"],
   }),
   BOT_TOKEN: str(),
+  OWNER_ID: str(),
+  LOG_LEVEL: num({
+    allowEmpty: true,
+    default: 3,
+    devDefault: 5,
+    choices: [0, 1, 2, 3, 4, 5],
+    desc: "Log level to use",
+  }),
 });
 
 @Service()
@@ -19,7 +27,19 @@ export default class ConfigService {
     this.config = config;
   }
 
-  public get(key: keyof typeof config): string {
-    return this.config[key];
+  public get logLevel(): number {
+    return this.config.LOG_LEVEL;
+  }
+
+  public get nodeEnv(): "development" | "test" | "production" {
+    return this.config.NODE_ENV as "development" | "test" | "production";
+  }
+
+  public get botToken(): string {
+    return this.config.BOT_TOKEN;
+  }
+
+  public get ownerId(): string {
+    return this.config.OWNER_ID;
   }
 }

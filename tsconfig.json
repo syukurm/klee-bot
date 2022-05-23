@@ -30,7 +30,9 @@
     "baseUrl": ".",
     "paths": {
       "~interfaces/*": ["src/interfaces/*"],
-      "~services/*": ["src/services/*"]
+      "~services/*": ["src/services/*"],
+      "~constants/*": ["src/constants/*"],
+      "~types/*": ["src/types/*"]
     }
   },
   "include": ["src/**/*", "jest.config.ts"],
