@@ -1,10 +1,12 @@
-import type { CommandInteraction, Message } from "discord.js";
-import { Discord, SimpleCommand, SimpleCommandMessage, Slash } from "discordx";
+import type { Message } from "discord.js";
+import { CommandInteraction } from "discord.js";
+import type { SimpleCommandMessage } from "discordx";
+import { Discord, SimpleCommand, Slash } from "discordx";
 
-import { Command } from "../interfaces/command";
+import type { Command } from "~interfaces/command";
 
 @Discord()
-export default class Ping implements Command {
+export default class PingCommand implements Command {
   @SimpleCommand("ping", { description: "Ping the bot" })
   public async simpleCommand(command: SimpleCommandMessage): Promise<void> {
     await this.execute(command.message);
@@ -15,7 +17,13 @@ export default class Ping implements Command {
     await this.execute(interaction);
   }
 
-  public async execute(interaction: CommandInteraction | Message): Promise<void> {
-    await interaction.reply(`Pong! Latency is ${interaction.client.ws.ping}ms.`);
+  public async execute(command: CommandInteraction | Message): Promise<void> {
+    if (command instanceof CommandInteraction) {
+      const sent = (await command.deferReply({ fetchReply: true })) as Message;
+      await command.editReply(`🏓 Pong: Latency is ${sent.createdTimestamp - command.createdTimestamp}ms`);
+    } else {
+      const sent = await command.reply("Pinging...");
+      await sent.edit(`🏓 Pong: Latency is ${sent.createdTimestamp - command.createdTimestamp}ms`);
+    }
   }
 }
