@@ -4,12 +4,12 @@ import type { CommandInteraction, Message } from "discord.js";
 import type { SimpleCommandMessage } from "discordx";
 import { Discord, SimpleCommand, Slash } from "discordx";
 
-import type { Command } from "../interfaces/command";
+import type { Command } from "~interfaces/command";
 
 dayjs.extend(relativeTime);
 
 @Discord()
-export default class Uptime implements Command {
+export default class UptimeCommand implements Command {
   @SimpleCommand("uptime", { description: "Get the bot's uptime" })
   public async simpleCommand(command: SimpleCommandMessage): Promise<void> {
     await this.execute(command.message);
@@ -20,11 +20,11 @@ export default class Uptime implements Command {
     await this.execute(interaction);
   }
 
-  public async execute(interaction: CommandInteraction | Message): Promise<void> {
-    const { uptime } = interaction.client;
+  public async execute(command: CommandInteraction | Message): Promise<void> {
+    const { uptime } = command.client;
 
-    await (uptime === null
-      ? interaction.reply("Uptime: unknown")
-      : interaction.reply(`Uptime: ${dayjs().from(dayjs().millisecond(uptime))}`));
+    const time = uptime !== null ? dayjs().from(dayjs().millisecond(uptime)) : "Unknown";
+
+    await command.reply(`Uptime: ${time}`);
   }
 }
