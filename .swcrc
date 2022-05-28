@@ -15,7 +15,8 @@
       "~interfaces/*": ["src/interfaces/*"],
       "~services/*": ["src/services/*"],
       "~constants/*": ["src/constants/*"],
-      "~types/*": ["src/types/*"]
+      "~types/*": ["src/types/*"],
+      "~classes/*": ["src/classes/*"]
     },
     "target": "es2022"
   },
