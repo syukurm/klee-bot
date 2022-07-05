@@ -73,7 +73,7 @@
     "@discordx/importer": "^1.1.9",
     "@discordx/pagination": "^2.1.2",
     "dayjs": "^1.11.2",
-    "discord-api-types": "^0.33.0",
+    "discord-api-types": "^0.34.0",
     "discord.js": "^13.7.0",
     "discordx": "^9.6.0",
     "dotenv": "^16.0.1",
